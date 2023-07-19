@@ -23,42 +23,23 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: servicio-productos
-          uri: lb://servicio-productos
+        - id: service-students
+          uri: lb://service-students
           predicates:
-            - Path=/api/productos/**
-#            - Header= token, \d+
-#            - Method=GET, POST
-#            - Query=color, verde
-#            - Cookie=color, azul
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: productos
-                statusCodes: 500
-                fallbackUri: forward:/api/items/ver/4/cantidad/5
-            - StripPrefix=2
-            - EjemploCookie=Hola mi mensaje personalizado, usuario, AndresGuzman
-
-        - id: servicio-items
-          uri: lb://servicio-items
-          predicates:
-            - Path=/api/items/**
+            - Path=/api/students/**
           filters:
             - StripPrefix=2
-#            - AddRequestHeader=token-request, 123456
-#            - AddResponseHeader=token-response, 12345678
-#            - AddRequestParameter=nombre, andres
 
-        - id: servicio-usuarios
-          uri: lb://servicio-usuarios
+
+        - id: service-users
+          uri: lb://service-users
           predicates:
-            - Path=/api/usuarios/**
+            - Path=/api/users/**
           filters:
             - StripPrefix=2
 
         - id: servicio-oauth
-          uri: lb://servicio-oauth
+          uri: lb://service-oauth
           predicates:
             - Path=/api/security/**
           filters:

@@ -19,13 +19,9 @@ public class SpringSecurityConfig {
     public SecurityWebFilterChain configure(ServerHttpSecurity http){
         return http.authorizeExchange()
                 .pathMatchers("/api/security/oauth/**").permitAll()
-                .pathMatchers(HttpMethod.GET, "/api/productos/listar",
-                        "/api/items/listar",
-                        "/api/usuarios/listar",
-                        "/api/items/ver/listar",
-                        "/api/productos/listar").permitAll()
-                .pathMatchers(HttpMethod.GET, "/api/usuarios/ver/{id}").hasAnyRole("ADMIN", "USER")
-                .pathMatchers("/api/productos/**", "/api/items/**", "/api/usuarios/**").hasRole("ADMIN")
+                .pathMatchers(HttpMethod.POST, "/api/users/users").permitAll()
+                .pathMatchers(HttpMethod.GET, "/api/users/users/username/{username}", "/api/students/students").hasAnyRole("ADMIN", "USER")
+                .pathMatchers( "/api/students/**", "/api/usuarios/**").hasRole("ADMIN")
                 .anyExchange().authenticated()
                 .and().addFilterAt(authenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .csrf().disable()

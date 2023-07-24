@@ -9,14 +9,14 @@ resilience4j:
         slow-call-rate-threshold: 50
         slow-call-duration-threshold: 2s
     instances:
-      productos:
+      students:
         base-config: defecto
   timelimiter:
     configs:
       defecto:
         timeout-duration: 2s
     instances:
-      productos:
+      students:
         base-config: defecto
 
 spring:
@@ -28,6 +28,11 @@ spring:
           predicates:
             - Path=/api/students/**
           filters:
+            - name: CircuitBreaker
+              args:
+                name: students
+                statusCodes: 500
+#                fallbackUri: forward:/api/students/students/1
             - StripPrefix=2
 
 
